@@ -7,6 +7,7 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     @group.owner_id = current_user.id
+    @group.users << current_user
     @group.save
     redirect_to groups_path, notice: "You have created book successfully."
   end
