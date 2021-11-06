@@ -25,8 +25,8 @@
         <td><%= link_to group.name, group_path(group) %></td>
         <td><%= group.introduction %></td>
         <td><% if group.owner_id == current_user.id %>
-              <%= link_to "edit", edit_group_path(group) %></td>
-            <% end %>
+              <%= link_to "edit", edit_group_path(group) %>
+            <% end %></td>
       </tr>
     <% end %>
   </tbody>
