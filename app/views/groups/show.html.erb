@@ -25,11 +25,11 @@
         <td><%= @group.name %></td>
         <td><%= @group.introduction %></td>
         <td><% @group_users.each do |user| %>
-              <%= user.user.name %><br><!--@group.idを持つ@group_userを選び出している。その中のuser_idを呼び出すために.userを付けるとuser_idの情報になる-->
+              <%=link_to user.user.name, user_path(user.user) %><br><!--@group.idを持つ@group_userを選び出している。その中のuser_idを呼び出すために.userを付けるとuser_idの情報になる-->
             <% end %></td>
             <% if @group.owner_id != current_user.id %>
                 <td>
-                <% if GroupUser.where(user_id: current_user.id).exists? %>
+                <% if @group_users.where(user_id: current_user.id).exists? %>
                   <%= link_to "Leave this group", group_group_users_path(@group.id), method: :delete %>
                 <% else %>
                   <%= link_to "Join this group", group_group_users_path(@group.id), method: :post %>
@@ -37,6 +37,7 @@
              <% end %>
               <td><% if @group.owner_id == current_user.id %>
               <%= link_to "edit", edit_group_path(@group) %>
+              <%= link_to 'Mail',group_new_mail_path(@group), class: "fas fa-paper-plane" %>
             <% end %></td>
 
 

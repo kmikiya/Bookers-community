@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'groups/index'
-  get 'groups/show'
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -15,5 +13,8 @@ Rails.application.routes.draw do
 
   resources :groups, only: [:index, :new, :show, :edit, :create, :destroy, :update] do
     resource :group_users, only: [:create, :destroy]
+    get "join" =>"groups#join"
+    get "new/mail" => "groups#new_mail"
+    get "send/mail" => "groups#send_mail"
   end
 end
