@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :groups, through: :group_users
 	has_many :group_users, dependent: :destroy
 	has_many :book_comments, dependent: :destroy
+	has_many :user_rooms, through: :group_users
+	has_many :chats, through: :group_users
   attachment :profile_image, destroy: false
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true

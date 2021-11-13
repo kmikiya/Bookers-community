@@ -8,7 +8,7 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Groups</h2>
-
+      <%= link_to 'Make group', new_group_path, class: "btn btn-info"%>
       <table class='table'>
   <thead>
     <tr>
@@ -26,8 +26,13 @@
         <td><%= link_to group.name, group_path(group.id) %></td>
         <td><%= group.introduction %></td>
         <td><%= group.users.count %></td>
+
         <td><% if group.owner_id == current_user.id %>
               <%= link_to "edit", edit_group_path(group), class: "btn btn-success" %>
+            <% elsif group.group_users.where(user_id: current_user.id).exists? %>
+              <%= link_to "Leave group", group_group_users_path(group), class: "btn btn-danger", method: :delete %>
+            <% else %>
+              <%= link_to "Join group", group_group_users_path(group), class: "btn btn-success", method: :post %>
             <% end %></td>
       </tr>
     <% end %>

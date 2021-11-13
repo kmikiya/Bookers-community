@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
   end
 
   def index
-    @groups = Group.all
+    @groups = Group.includes(:users, :group_users).all
     @book = Book.new
   end
 
@@ -47,6 +47,10 @@ class GroupsController < ApplicationController
     @mail_title = params[:mail_title]
     @mail_content = params[:mail_content]
     ContactMailer.send_mail(@mail_title, @mail_content,group_users).deliver#contact_mailerで定義したsend_mailはここで使われる
+  end
+
+  def group_exist(user)
+    Group.where(user_id: user.id).exists?
   end
 
   private
